@@ -1,0 +1,10 @@
+show_icons=false
+prompt=Search...
+width=400
+height=450
+location=center
+no_actions=true
+insensitive=true
+#allow_markup=true
+allow_images=true
+image_size=25

@@ -1,0 +1,205 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": [
+        "group/apps",
+        "hyprland/workspaces",
+        "wlr/taskbar"
+    ],
+    "modules-center": [
+        "custom/mpris"
+    ],
+    "modules-right": [
+        "clock",
+        "custom/sep",
+        "custom/rec",
+        "custom/sep",
+        "bluetooth",
+        "pulseaudio",
+        "backlight",
+        "custom/sep",
+        "custom/wallpaper",
+        "custom/hyprsunset",
+        "custom/sep",
+        "group/power"
+    ],
+    // ─────────────────────────────────────────────────────────────────
+    //  MODULES
+    // ─────────────────────────────────────────────────────────────────
+    "group/apps": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "custom/app_toggle",
+            "custom/app_term",
+            "custom/app_files",
+            "custom/app_browser",
+            "custom/app_code"
+        ]
+    },
+    "custom/app_toggle": {
+        "format": "●",
+        "tooltip-format": "📦 Applications"
+    },
+    "custom/app_term": {
+        "format": "🖥️",
+        "on-click": "kitty",
+        "exec": "echo '{\"tooltip\": \"Terminal\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "custom/app_files": {
+        "format": "📁",
+        "on-click": "thunar",
+        "exec": "echo '{\"tooltip\": \"File Manager\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "custom/app_browser": {
+        "format": "🌐",
+        "on-click": "zen-browser",
+        "exec": "echo '{\"tooltip\": \"Zen Browser\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "custom/app_code": {
+        "format": "💻",
+        "on-click": "code",
+        "exec": "echo '{\"tooltip\": \"VS Code\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "group/power": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/power",
+            "tray",
+            "custom/reload",
+            "battery",
+            "network"
+        ]
+    },
+    "custom/sep": {
+        "format": "|",
+        "tooltip": false
+    },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}"
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+        "all-outputs": true,
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+    "custom/mpris": {
+        "format": "{}",
+        "max-length": 100,
+        "interval": 1,
+        "exec": "playerctl metadata --format '🎵 {{artist}} - {{title}} [{{duration(position)}}/{{duration(mpris:length)}}]' 2>/dev/null || true",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "tooltip": false
+    },
+    "clock": {
+        "format": "📅 {:%d/%m  %H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "on-click": "kitty -e calc"
+    },
+    "custom/rec": {
+        "format": "●",
+        "interval": 1,
+        "exec": "pgrep -x wf-recorder >/dev/null && echo '{\"class\": \"recording\", \"tooltip\": \"🔴 Recording... (Click to Stop)\"}' || echo '{\"class\": \"stopped\", \"tooltip\": \"🎥 Start Recording (Audio + Crop)\"}'",
+        "return-type": "json",
+        "on-click": "pgrep -x wf-recorder && pkill wf-recorder || (mkdir -p ~/Videos/Recordings && wf-recorder -g \"0,30 1920x1050\" -f ~/Videos/Recordings/rec_$(date +'%Y-%m-%d_%H-%M-%S.mp4') --audio=$(pactl get-default-sink).monitor &)"
+    },
+    "bluetooth": {
+        "format": "●",
+        "format-connected": "●",
+        "format-disabled": "●",
+        "on-click": "blueman-manager",
+        "tooltip-format": "🎧 Bluetooth: {status}",
+        "tooltip-format-connected": "🎧 Connected: {device_alias}"
+    },
+    "pulseaudio": {
+        "format": "●",
+        "format-muted": "●",
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "tooltip-format": "🔊 Volume: {volume}%"
+    },
+    "backlight": {
+        "format": "●",
+        "scroll-step": 5,
+        "tooltip-format": "☀️ Brightness: {percent}%",
+        "on-click": "hyprsunset --temperature 1000",
+        "on-click-right": "hyprsunset --temperature 4000",
+        "on-click-middle": "pkill hyprsunset"
+    },
+    "custom/wallpaper": {
+        "format": "●",
+        "on-click": "hyprwallpaper",
+        "on-click-middle": "thunar ~/Pictures/wallpapers",
+        "on-click-right": "xdg-open 'https://wallhaven.cc/toplist?page=2'",
+        "exec": "echo '{\"tooltip\": \"🖼️ Random Wallpaper\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "custom/hyprsunset": {
+        "format": "●",
+        "interval": 1,
+        "return-type": "json",
+        "exec": "T=$(cat /tmp/hss_temp 2>/dev/null || echo 2200); if pgrep hyprsunset >/dev/null; then echo \"{\\\"tooltip\\\": \\\"🌙 Night Light: ${T}K\\\"}\"; else echo \"{\\\"tooltip\\\": \\\"🌙 Night Light: OFF\\\"}\"; fi",
+        "on-click": "pkill hyprsunset && rm /tmp/hss_temp || (echo 2200 > /tmp/hss_temp && nohup hyprsunset --temperature 2200 >/dev/null 2>&1 &)",
+        "on-scroll-up": "T=$(cat /tmp/hss_temp 2>/dev/null || echo 2200); T=$((T+500)); [ $T -gt 3000 ] && T=3000; echo $T > /tmp/hss_temp; pkill hyprsunset; sleep 0.1; nohup hyprsunset --temperature $T >/dev/null 2>&1 &",
+        "on-scroll-down": "T=$(cat /tmp/hss_temp 2>/dev/null || echo 2200); T=$((T-500)); [ $T -lt 1000 ] && T=1000; echo $T > /tmp/hss_temp; pkill hyprsunset; sleep 0.1; nohup hyprsunset --temperature $T >/dev/null 2>&1 &"
+    },
+    "network": {
+        "format-wifi": "●",
+        "format-ethernet": "●",
+        "format-disconnected": "●",
+        "on-click": "kitty -e nmtui",
+        "tooltip-format": "🛜 {signalStrength}%"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "●",
+        "format-charging": "●",
+        "format-plugged": "●",
+        "tooltip-format": "🔋 Battery: {capacity}%"
+    },
+    "custom/reload": {
+        "format": "●",
+        "on-click": "hyprctl reload; killall waybar; waybar &",
+        "exec": "echo '{\"tooltip\": \"🔄 Reload Waybar\"}'",
+        "return-type": "json",
+        "interval": 86400
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+    "custom/power": {
+        "format": "●",
+        "on-click": "wlogout",
+        "tooltip": "⏻ Power Menu"
+    }
+}

@@ -1,0 +1,71 @@
+/* ─────────────────────────────────────────────────────────────────
+   WOFI STYLE - CATPPUCCIN MOCHA (Modern)
+   ───────────────────────────────────────────────────────────────── */
+
+/* Janela Principal */
+window {
+    margin: 0px;
+    border: 2px solid #cba6f7;
+    /* Mauve border */
+    background-color: #1e1e2e;
+    /* Base */
+    border-radius: 12px;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+/* Campo de Entrada (Pesquisa) */
+#input {
+    margin: 5px;
+    border: none;
+    background-color: #313244;
+    /* Surface0 */
+    color: #cdd6f4;
+    /* Text */
+    border-radius: 8px;
+    padding: 6px;
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Itens da Lista */
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: #cdd6f4;
+}
+
+/* Item Selecionado */
+#entry:selected {
+    background-color: #cba6f7;
+    /* Mauve */
+    color: #1e1e2e;
+    /* Base (texto escuro no destaque) */
+    border-radius: 8px;
+    outline: none;
+}
+
+#entry:selected #text {
+    color: #1e1e2e;
+}
+
+/* Imagens (Ícones) */
+#img {
+    margin-right: 10px;
+    background: transparent;
+}

@@ -38,8 +38,34 @@ Welcome to my personal collection of dotfiles! This repository aims to provide a
 
 ## ⌨️ Keybindings (Highlights)
 
-- `Super + Return`: Open Terminal (Kitty)
-- `Super + Space`: Open Launcher (Wofi)
-- `Super + Q`: Close Window
-- `Super + E`: Open File Manager
-- `Super + Shift + S`: Screenshot
+
+
+| Key Combination | Action |
+
+| :--- | :--- |
+
+| `Super + Q` | Open Terminal (Kitty) |
+
+| `Super + F` | Open Browser (Firefox) |
+
+| `Super + T` | Open File Manager (Thunar) |
+
+| `Super + D` | Open Launcher (Wofi) |
+
+| `Super + Return` | Swap Window with Master |
+
+| `Super + C` | Close Window |
+
+| `Super + M` | Exit Hyprland |
+
+| `Super + V` | Clipboard History |
+
+| `Super + Shift + S` | Screenshot to Clipboard |
+
+| `Super + O` | Toggle Expo View |
+
+| `Super + Space` | Cycle Layout Orientation |
+
+| `Super + 1-9` | Switch Workspace |
+
+| `Super + Shift + 1-9` | Move Window to Workspace |

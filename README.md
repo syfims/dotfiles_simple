@@ -4,7 +4,7 @@ Welcome to my personal collection of dotfiles! This repository aims to provide a
 
 ## 🖼️ Preview
 
-*(Add a screenshot of your desktop here)*
+
 
 ## 🛠️ Components
 

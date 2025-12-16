@@ -93,6 +93,13 @@ if [ -d "$REPO_CONFIG_DIR" ]; then
         fi
         
         cp -r "$item" "$TARGET"
+        
+        # Remove nested .git directories from the target to keep it clean
+        if [ -d "$TARGET/.git" ]; then
+            rm -rf "$TARGET/.git"
+            echo -e "${DARK}Removed nested .git from $item_name${RESET}"
+        fi
+
         echo -e "${DARK}Copied $item_name${RESET}"
     done
 else

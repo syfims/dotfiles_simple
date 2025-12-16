@@ -80,7 +80,7 @@ function gits
     end
 
     # Check for remote
-    if not git remote -v >/dev/null 2>&1
+    if test -z "$(git remote)"
         echo "⚠️  No remote repository configured."
         read -P "🔗 Enter remote URL (e.g., git@github.com:user/repo.git): " remote_url
         if test -n "$remote_url"

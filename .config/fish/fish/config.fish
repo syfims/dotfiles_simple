@@ -77,7 +77,18 @@ function gits
         echo "❌ Not a git repository. Initializing..."
         git init
         git checkout -b main
-        echo "⚠️  Please add a remote manually: git remote add origin <url>"
+    end
+
+    # Check for remote
+    if not git remote -v >/dev/null 2>&1
+        echo "⚠️  No remote repository configured."
+        read -P "🔗 Enter remote URL (e.g., git@github.com:user/repo.git): " remote_url
+        if test -n "$remote_url"
+            git remote add origin "$remote_url"
+            echo "✅ Remote 'origin' added."
+        else
+            echo "❌ No URL provided. Aborting push (files will be committed locally)."
+        end
     end
 
     echo "📦 Adding files..."
@@ -88,11 +99,11 @@ function gits
     else
         echo "💾 Committing: '$msg'"
         git commit -m "$msg"
-        
-        echo "🚀 Pushing..."
-        if not git push
-            echo "⚠️  Push failed. Setup upstream: git push -u origin main"
-            git push -u origin main
-        end
+    end
+    
+    echo "🚀 Pushing..."
+    if not git push
+        echo "⚠️  Push failed. Setup upstream: git push -u origin main"
+        git push -u origin main
     end
 end
